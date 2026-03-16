@@ -1,0 +1,5 @@
+node_modules/
+.gdocs-sync.json
+CLAUDE.md
+
+# Never commit your personal token — stored at ~/.gdocs/token.json

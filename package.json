@@ -1,0 +1,38 @@
+{
+  "name": "gdocs-sync",
+  "version": "0.1.0",
+  "description": "Sync local Markdown files to Google Docs and back — push, pull, and resolve comments from the CLI",
+  "license": "MIT",
+  "type": "module",
+  "author": "Billy Kovalsky",
+  "keywords": [
+    "google-docs",
+    "markdown",
+    "sync",
+    "cli",
+    "google-drive",
+    "docs",
+    "comments"
+  ],
+  "bin": {
+    "gdocs": "./bin/gdocs.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "diff": "^5.2.0",
+    "google-auth-library": "^9.0.0",
+    "googleapis": "^140.0.0",
+    "marked": "^12.0.0",
+    "open": "^10.0.0",
+    "turndown": "^7.2.0",
+    "turndown-plugin-gfm": "^1.0.2"
+  }
+}
