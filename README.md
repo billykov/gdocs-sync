@@ -2,12 +2,17 @@
 
 Sync local markdown files to Google Docs and back. Write locally, collaborate in Google Docs.
 
+Works as a **CLI tool** and as an **MCP server** for [Claude Code](https://claude.ai/code).
+
 ## Features
 
 - Push local markdown to Google Docs
 - Pull content and comments back to local files
 - Lazy doc creation — first push creates the doc automatically
+- Diff-based push — only changed paragraphs are updated, preserving comment anchors
+- Resolve comments locally by marking `[RESOLVED]`, synced on next push
 - Token-based auth — authenticate once, run forever
+- MCP server mode — use as native tools inside Claude Code
 
 ## Installation
 
@@ -103,6 +108,48 @@ gdocs pull spec.md
 
 - `.gdocs-sync.json` — stores the mapping of local files to Google Doc IDs (per project)
 - `~/.gdocs/token.json` — stores your OAuth token (per machine, never committed)
+
+## MCP Server (Claude Code)
+
+gdocs-sync can run as an MCP server, exposing `gdocs_push` and `gdocs_pull` as native tools inside Claude Code.
+
+### Register with Claude Code
+
+```bash
+claude mcp add --transport stdio gdocs \
+  --env GDOCS_CLIENT_ID=$GDOCS_CLIENT_ID \
+  --env GDOCS_CLIENT_SECRET=$GDOCS_CLIENT_SECRET \
+  -- gdocs mcp-server
+```
+
+Or check a `.mcp.json` into your project to share it with your team:
+
+```json
+{
+  "mcpServers": {
+    "gdocs": {
+      "type": "stdio",
+      "command": "gdocs",
+      "args": ["mcp-server"],
+      "env": {
+        "GDOCS_CLIENT_ID": "${GDOCS_CLIENT_ID}",
+        "GDOCS_CLIENT_SECRET": "${GDOCS_CLIENT_SECRET}"
+      }
+    }
+  }
+}
+```
+
+### Available MCP tools
+
+| Tool | Description |
+|------|-------------|
+| `gdocs_push` | Push a Markdown file to Google Docs |
+| `gdocs_pull` | Pull content and comments from Google Docs |
+
+Both tools accept a `file` parameter (path to the `.md` file) and an optional `cwd` parameter (project directory containing `.gdocs-sync.json`).
+
+Claude can then push and pull docs on your behalf — no CLI commands needed.
 
 ## Contributing
 
