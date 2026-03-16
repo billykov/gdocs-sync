@@ -1,6 +1,6 @@
 {
   "name": "gdocs-sync",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Sync local Markdown files to Google Docs and back — push, pull, and resolve comments from the CLI",
   "license": "MIT",
   "type": "module",
