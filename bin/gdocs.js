@@ -5,6 +5,7 @@ import { auth } from '../src/commands/auth.js';
 import { init } from '../src/commands/init.js';
 import { push } from '../src/commands/push.js';
 import { pull } from '../src/commands/pull.js';
+import { startMcpServer } from '../src/commands/mcp.js';
 
 program
   .name('gdocs')
@@ -38,5 +39,10 @@ program
   .command('pull <file>')
   .description('Pull content and comments from Google Docs to the local file (writes <file>.comments.md)')
   .action(pull);
+
+program
+  .command('mcp-server')
+  .description('Start the gdocs MCP server (stdio) for use with Claude Code')
+  .action(startMcpServer);
 
 program.parse();

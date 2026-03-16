@@ -56,7 +56,7 @@ export async function push(file) {
   }
 }
 
-async function ensureFolder(drive) {
+export async function ensureFolder(drive) {
   const userConfig = readUserConfig();
   if (userConfig.folderId) return userConfig.folderId;
 
@@ -88,7 +88,7 @@ async function ensureFolder(drive) {
   return folderId;
 }
 
-async function createDoc(drive, docs, name, folderId) {
+export async function createDoc(drive, docs, name, folderId) {
   // Create an empty Google Doc in the folder
   const res = await drive.files.create({
     requestBody: {
@@ -101,7 +101,7 @@ async function createDoc(drive, docs, name, folderId) {
   return res.data.id;
 }
 
-async function writeContent(docs, docId, markdown, diff = false) {
+export async function writeContent(docs, docId, markdown, diff = false) {
   const doc = await docs.documents.get({ documentId: docId });
 
   let requests;
