@@ -15,7 +15,7 @@
     "comments"
   ],
   "bin": {
-    "gdocs": "./bin/gdocs.js"
+    "gdocs": "bin/gdocs.js"
   },
   "files": [
     "bin",
