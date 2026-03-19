@@ -31,12 +31,20 @@ export function writeConfig(data) {
   fs.writeFileSync(p, JSON.stringify(data, null, 2) + '\n');
 }
 
+function validateFilename(filename) {
+  if (!filename || filename !== path.basename(filename) || filename.startsWith('.')) {
+    throw new Error(`Invalid filename: ${filename}`);
+  }
+}
+
 export function getFileEntry(filename) {
+  validateFilename(filename);
   const config = readConfig();
   return config.files?.[filename] ?? null;
 }
 
 export function setFileEntry(filename, entry) {
+  validateFilename(filename);
   const config = readConfig();
   config.files = config.files ?? {};
   config.files[filename] = { ...config.files[filename], ...entry };

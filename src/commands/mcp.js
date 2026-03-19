@@ -47,10 +47,13 @@ export function startMcpServer() {
     fileParams,
     async ({ file, cwd: projectDir }) => {
       try {
-        const dir = projectDir ?? process.cwd();
+        const dir = path.resolve(projectDir ?? process.cwd());
         process.chdir(dir);
-        const filename = path.basename(file);
         const filepath = path.resolve(dir, file);
+        if (!filepath.startsWith(dir + path.sep) && filepath !== dir) {
+          return err(`Path traversal denied: ${file} is outside the project directory`);
+        }
+        const filename = path.basename(filepath);
 
         if (!fs.existsSync(filepath)) return err(`File not found: ${filepath}`);
 
@@ -88,10 +91,13 @@ export function startMcpServer() {
     fileParams,
     async ({ file, cwd: projectDir }) => {
       try {
-        const dir = projectDir ?? process.cwd();
+        const dir = path.resolve(projectDir ?? process.cwd());
         process.chdir(dir);
-        const filename = path.basename(file);
         const filepath = path.resolve(dir, file);
+        if (!filepath.startsWith(dir + path.sep) && filepath !== dir) {
+          return err(`Path traversal denied: ${file} is outside the project directory`);
+        }
+        const filename = path.basename(filepath);
         const entry = getFileEntry(filename);
 
         if (!entry?.docId) {

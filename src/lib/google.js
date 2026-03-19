@@ -22,7 +22,7 @@ export function loadToken() {
 export function saveToken(tokens) {
   const dir = path.dirname(TOKEN_PATH);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(TOKEN_PATH, JSON.stringify(tokens, null, 2));
+  fs.writeFileSync(TOKEN_PATH, JSON.stringify(tokens, null, 2), { mode: 0o600 });
 }
 
 export function getAuthClient() {

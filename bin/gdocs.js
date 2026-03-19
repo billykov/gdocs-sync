@@ -17,7 +17,7 @@ program
     '  gdocs push notes.md Create/update a Google Doc from notes.md\n' +
     '  gdocs pull notes.md Pull content and comments back to notes.md'
   )
-  .version('0.1.0');
+  .version('0.2.2');
 
 program
   .command('auth')

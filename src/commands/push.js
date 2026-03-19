@@ -61,6 +61,7 @@ export async function ensureFolder(drive) {
   if (userConfig.folderId) return userConfig.folderId;
 
   // Check if folder already exists in Drive
+  // GDOCS_FOLDER_NAME is a module-level constant — safe from injection
   const res = await drive.files.list({
     q: `name='${GDOCS_FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false`,
     fields: 'files(id)',
